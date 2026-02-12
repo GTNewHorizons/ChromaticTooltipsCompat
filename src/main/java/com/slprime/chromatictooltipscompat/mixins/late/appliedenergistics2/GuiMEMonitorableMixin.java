@@ -16,7 +16,7 @@ public class GuiMEMonitorableMixin {
 
     /**
      * @author SLPrime
-     * @reason Disable AE2's built-in tooltip handling to prevent conflicts with WAILA/CT
+     * @reason Disable AE2's built-in tooltip handling to prevent item amount
      */
     @Inject(method = "handleItemTooltip", at = @At("HEAD"), remap = false, cancellable = true)
     private void handleItemTooltip(ItemStack stack, int mouseX, int mouseY, List<String> currentToolTip,

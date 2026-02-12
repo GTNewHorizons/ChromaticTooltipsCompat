@@ -83,11 +83,16 @@ public enum Mixins implements IMixins {
         .setApplyIf(() -> Config.railcraftEnabled)
         .setPhase(Phase.LATE)),
 
-    APPLIED_ENERGISTICS_AMOUNT(new MixinBuilder("Applied Energistics 2")
-        .addRequiredMod(TargetedMod.APPLIED_ENERGISTICS_2)
-        .addClientMixins("appliedenergistics2.GuiInterfaceTerminalMixin", "appliedenergistics2.GuiMEMonitorableMixin")
-        .setApplyIf(() -> Config.appliedEnergisticsEnabled && Config.appliedEnergisticsAmountEnabled)
+    APPLIED_ENERGISTICS(new MixinBuilder("Applied Energistics 2").addRequiredMod(TargetedMod.APPLIED_ENERGISTICS_2)
+        .addClientMixins("appliedenergistics2.GuiInterfaceTerminalMixin")
+        .setApplyIf(() -> Config.appliedEnergisticsEnabled)
         .setPhase(Phase.LATE)),
+
+    APPLIED_ENERGISTICS_AMOUNT(
+        new MixinBuilder("Applied Energistics 2").addRequiredMod(TargetedMod.APPLIED_ENERGISTICS_2)
+            .addClientMixins("appliedenergistics2.GuiMEMonitorableMixin")
+            .setApplyIf(() -> Config.appliedEnergisticsEnabled && Config.appliedEnergisticsAmountEnabled)
+            .setPhase(Phase.LATE)),
 
     TINKERS_CONSTRUCT(new MixinBuilder("Tinkers Construct").addRequiredMod(TargetedMod.TINKERS_CONSTRUCT)
         .addClientMixins("tconstruct.SmelteryGuiMixin")

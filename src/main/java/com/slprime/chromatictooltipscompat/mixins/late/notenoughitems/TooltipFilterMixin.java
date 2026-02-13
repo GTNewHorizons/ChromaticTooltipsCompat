@@ -35,6 +35,18 @@ public class TooltipFilterMixin {
                         .append("\n");
                 }
             }
+
+            for (EnchantmentData enchantmentData : EnchantmentEnricher.getEnchantments(target)) {
+                tooltip.append(enchantmentData.enchantment.getTranslatedName(enchantmentData.level))
+                    .append("\n");
+                tooltip.append(enchantmentData.hint)
+                    .append("\n");
+            }
+
+            for (ItemStats itemStats : ItemStatsEnricher.getAttributeModifiers(target)) {
+                tooltip.append(itemStats.getTextLine())
+                    .append("\n");
+            }
         } else if (target.isFluid()) {
             for (Object info : FluidInfoEnricher.getFluidInformation(target)) {
                 if (info instanceof String str) {
@@ -42,18 +54,6 @@ public class TooltipFilterMixin {
                         .append("\n");
                 }
             }
-        }
-
-        for (EnchantmentData enchantmentData : EnchantmentEnricher.getEnchantments(target)) {
-            tooltip.append(enchantmentData.enchantment.getTranslatedName(enchantmentData.level))
-                .append("\n");
-            tooltip.append(enchantmentData.hint)
-                .append("\n");
-        }
-
-        for (ItemStats itemStats : ItemStatsEnricher.getAttributeModifiers(target)) {
-            tooltip.append(itemStats.getTextLine())
-                .append("\n");
         }
 
         return tooltip.toString();

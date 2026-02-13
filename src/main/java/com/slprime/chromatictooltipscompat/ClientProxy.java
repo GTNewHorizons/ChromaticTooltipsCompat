@@ -55,8 +55,7 @@ public class ClientProxy extends CommonProxy implements IResourceManagerReloadLi
             DraconicEvolutionHandler.registerHandler();
         }
 
-        if (CompatConfig.appliedEnergisticsEnabled && CompatConfig.appliedEnergisticsAmountEnabled
-            && Loader.isModLoaded(ModIds.APPLIED_ENERGISTICS2)) {
+        if (CompatConfig.appliedEnergisticsEnabled && Loader.isModLoaded(ModIds.APPLIED_ENERGISTICS2)) {
             AppliedEnergisticsHandler.registerHandler();
         }
 

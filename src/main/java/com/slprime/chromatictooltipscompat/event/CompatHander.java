@@ -196,11 +196,8 @@ public class CompatHander {
         }
 
         if (CompatConfig.botaniaEnabled) {
-            final String shiftinfo = EnumChatFormatting.getTextWithoutFormattingCodes(
-                StatCollector.translateToLocal("botaniamisc.shiftinfo")
-                    .replaceAll("&", "\u00a7"));
-
-            TOOLTIPS.add(new TooltipLineModifier(shiftinfo, TooltipLines.SHIFT_MODIFIER));
+            TOOLTIPS
+                .add(new TooltipLineModifier(translateToLocal("botaniamisc.shiftinfo"), TooltipLines.SHIFT_MODIFIER));
         }
 
         if (CompatConfig.spiceoflifeEnabled) {
@@ -349,11 +346,15 @@ public class CompatHander {
     }
 
     private static String translateToLocal(String key) {
-        return EnumChatFormatting.getTextWithoutFormattingCodes(StatCollector.translateToLocal(key));
+        return EnumChatFormatting.getTextWithoutFormattingCodes(
+            StatCollector.translateToLocal(key)
+                .replaceAll("&[0-9a-fk-or]", ""));
     }
 
     private static String translateToLocalFormatted(String key, Object... format) {
-        return EnumChatFormatting.getTextWithoutFormattingCodes(StatCollector.translateToLocalFormatted(key, format));
+        return EnumChatFormatting.getTextWithoutFormattingCodes(
+            StatCollector.translateToLocalFormatted(key, format)
+                .replaceAll("&[0-9a-fk-or]", ""));
     }
 
 }

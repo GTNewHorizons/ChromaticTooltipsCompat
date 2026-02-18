@@ -15,7 +15,7 @@ public abstract class GuiToolTipMixin {
     protected boolean visible;
 
     @Shadow(remap = false)
-    protected Rectangle bounds;
+    protected abstract Rectangle getBounds();
 
     @Shadow(remap = false)
     private int lastMouseX = -1;
@@ -38,6 +38,6 @@ public abstract class GuiToolTipMixin {
 
         this.updateText();
 
-        return bounds.contains(lastMouseX, lastMouseY);
+        return getBounds().contains(lastMouseX, lastMouseY);
     }
 }

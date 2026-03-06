@@ -3,13 +3,12 @@ package com.slprime.chromatictooltipscompat.event;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 
 import com.slprime.chromatictooltips.api.ItemStats;
 import com.slprime.chromatictooltips.event.AttributeEnricherEvent;
+import com.slprime.chromatictooltips.util.TooltipUtils;
 
-import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import tconstruct.library.tools.ToolCore;
@@ -17,11 +16,7 @@ import tconstruct.library.tools.ToolCore;
 public class TConstructHandler {
 
     public static void registerHandler() {
-        TConstructHandler instance = new TConstructHandler();
-        FMLCommonHandler.instance()
-            .bus()
-            .register(instance);
-        MinecraftForge.EVENT_BUS.register(instance);
+        TooltipUtils.registerEventListener(new TConstructHandler());
     }
 
     @SubscribeEvent

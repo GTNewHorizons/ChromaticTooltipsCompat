@@ -27,6 +27,10 @@ public class CompatConfig {
     @Config.DefaultBoolean(true)
     public static boolean appleCoreEnabled;
 
+    @Config.Comment("Show food stats in AppleCore tooltips")
+    @Config.DefaultBoolean(false)
+    public static boolean appleCoreFoodStatsEnabled;
+
     @Config.Comment("Enable compatibility with Applied Energistics")
     @Config.DefaultBoolean(true)
     public static boolean appliedEnergisticsEnabled;

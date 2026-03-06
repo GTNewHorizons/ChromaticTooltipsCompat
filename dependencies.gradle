@@ -1,5 +1,5 @@
 dependencies {
-    implementation("com.github.slprime:ChromaticTooltips:1.0.7:dev")
+    implementation("com.github.slprime:ChromaticTooltips:1.0.13:dev")
 
     devOnlyNonPublishable("com.github.GTNewHorizons:NotEnoughItems:2.8.71-GTNH:dev")
     devOnlyNonPublishable("com.github.GTNewHorizons:AppleCore:3.3.9:dev")
@@ -21,5 +21,4 @@ dependencies {
     devOnlyNonPublishable("com.github.GTNewHorizons:Draconic-Evolution:1.5.18-GTNH:dev")
     devOnlyNonPublishable("com.github.GTNewHorizons:Baubles-Expanded:2.2.6-GTNH:dev")
     devOnlyNonPublishable("com.github.GTNewHorizons:LogisticsPipes:1.5.12-GTNH:dev")
-
 }

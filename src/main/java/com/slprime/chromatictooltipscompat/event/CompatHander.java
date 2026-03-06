@@ -11,7 +11,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 
 import org.lwjgl.input.Keyboard;
@@ -21,7 +20,6 @@ import com.slprime.chromatictooltips.util.TooltipUtils;
 import com.slprime.chromatictooltipscompat.CompatConfig;
 
 import codechicken.nei.util.ItemStackKey;
-import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
@@ -42,11 +40,7 @@ public class CompatHander {
     private static final Map<ItemStackKey, Set<TooltipLineModifier>> MODIFIERS = new HashMap<>();
 
     public static void registerHandler() {
-        CompatHander instance = new CompatHander();
-        FMLCommonHandler.instance()
-            .bus()
-            .register(instance);
-        MinecraftForge.EVENT_BUS.register(instance);
+        TooltipUtils.registerEventListener(new CompatHander());
     }
 
     public static void reload() {

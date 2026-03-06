@@ -137,6 +137,11 @@ public enum Mixins implements IMixins {
     LOGISTICS_PIPES(new MixinBuilder("Logistics Pipes").addRequiredMod(TargetedMod.LOGISTICS_PIPES)
         .addClientMixins("logisticspipes.GuiGraphicsMixin")
         .setApplyIf(() -> CompatConfig.logisticsPipesEnabled)
+        .setPhase(Phase.LATE)),
+
+    APPLECORE(new MixinBuilder("AppleCore").addRequiredMod(TargetedMod.APPLECORE)
+        .addClientMixins("applecore.TooltipOverlayHandlerMixin")
+        .setApplyIf(() -> !CompatConfig.appleCoreFoodStatsEnabled)
         .setPhase(Phase.LATE));
 
     private final MixinBuilder builder;

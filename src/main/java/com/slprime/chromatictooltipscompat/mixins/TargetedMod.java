@@ -27,7 +27,8 @@ public enum TargetedMod implements ITargetMod {
     GREGTECH( "gregtech.asm.GTCorePlugin", "gregtech"),
     AE2FC(null, "ae2fc"),
     LOGISTICS_PIPES(null, "LogisticsPipes"),
-    BAUBLES_EXPANDED(null, "Baubles|Expanded");
+    BAUBLES_EXPANDED(null, "Baubles|Expanded"),
+    APPLECORE(null, "AppleCore");
     // spotless:on
 
     private final TargetModBuilder builder;

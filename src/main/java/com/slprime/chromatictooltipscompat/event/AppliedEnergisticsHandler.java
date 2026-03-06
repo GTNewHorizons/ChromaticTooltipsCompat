@@ -4,14 +4,12 @@ import java.awt.Point;
 import java.lang.reflect.Method;
 
 import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraftforge.common.MinecraftForge;
 
 import com.slprime.chromatictooltips.event.StackSizeEnricherEvent;
 import com.slprime.chromatictooltips.util.TooltipUtils;
 
 import appeng.api.storage.data.IAEStack;
 import appeng.client.gui.AEBaseGui;
-import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class AppliedEnergisticsHandler {
@@ -26,11 +24,7 @@ public class AppliedEnergisticsHandler {
     protected static Method getVirtualMESlotStack = null;
 
     public static void registerHandler() {
-        AppliedEnergisticsHandler instance = new AppliedEnergisticsHandler();
-        FMLCommonHandler.instance()
-            .bus()
-            .register(instance);
-        MinecraftForge.EVENT_BUS.register(instance);
+        TooltipUtils.registerEventListener(new AppliedEnergisticsHandler());
 
         try {
             getVirtualMESlotUnderMouse = AEBaseGui.class.getDeclaredMethod("getVirtualMESlotUnderMouse");

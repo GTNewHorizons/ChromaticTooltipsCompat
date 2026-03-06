@@ -11,7 +11,6 @@ import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.client.event.GuiScreenEvent.DrawScreenEvent;
-import net.minecraftforge.common.MinecraftForge;
 
 import com.slprime.chromatictooltips.TooltipRegistry;
 import com.slprime.chromatictooltips.api.EnricherPlace;
@@ -36,7 +35,6 @@ import codechicken.nei.NEIClientUtils;
 import codechicken.nei.guihook.GuiContainerManager;
 import codechicken.nei.guihook.IContainerTooltipHandler;
 import codechicken.nei.util.ItemUntranslator;
-import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -123,11 +121,7 @@ public class NEIHandler {
     protected static List<ITooltipLineHandler> tipLineHandlers = new ArrayList<>();
 
     public static void registerHandler() {
-        NEIHandler instance = new NEIHandler();
-        FMLCommonHandler.instance()
-            .bus()
-            .register(instance);
-        MinecraftForge.EVENT_BUS.register(instance);
+        TooltipUtils.registerEventListener(new NEIHandler());
         TooltipRegistry.addEnricherAfter("title", new SecondTitleEnricher());
 
         try {

@@ -141,7 +141,12 @@ public enum Mixins implements IMixins {
 
     APPLECORE(new MixinBuilder("AppleCore").addRequiredMod(TargetedMod.APPLECORE)
         .addClientMixins("applecore.TooltipOverlayHandlerMixin")
-        .setApplyIf(() -> !CompatConfig.appleCoreFoodStatsEnabled)
+        .setApplyIf(() -> CompatConfig.appleCoreFoodStatsDisabled)
+        .setPhase(Phase.LATE)),
+
+    JECALCULATION(new MixinBuilder("Just Enough Calculation").addRequiredMod(TargetedMod.JECALCULATION)
+        .addClientMixins("jecalculation.JecaGuiMixin", "jecalculation.WTooltipMixin")
+        .setApplyIf(() -> CompatConfig.jecalculationEnabled)
         .setPhase(Phase.LATE));
 
     private final MixinBuilder builder;

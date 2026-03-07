@@ -27,9 +27,9 @@ public class CompatConfig {
     @Config.DefaultBoolean(true)
     public static boolean appleCoreEnabled;
 
-    @Config.Comment("Show food stats in AppleCore tooltips")
-    @Config.DefaultBoolean(false)
-    public static boolean appleCoreFoodStatsEnabled;
+    @Config.Comment("Hide food stats in AppleCore tooltips")
+    @Config.DefaultBoolean(true)
+    public static boolean appleCoreFoodStatsDisabled;
 
     @Config.Comment("Enable compatibility with Applied Energistics")
     @Config.DefaultBoolean(true)
@@ -126,6 +126,10 @@ public class CompatConfig {
     @Config.Comment("Enable compatibility with Logistics Pipes")
     @Config.DefaultBoolean(true)
     public static boolean logisticsPipesEnabled;
+
+    @Config.Comment("Enable compatibility with Just Enough Calculation")
+    @Config.DefaultBoolean(true)
+    public static boolean jecalculationEnabled;
 
     @Config.Comment("Enable compatibility with Modular UI")
     @Config.DefaultBoolean(true)

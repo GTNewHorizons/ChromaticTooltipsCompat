@@ -2,6 +2,9 @@
 
 repositories {
     maven {
-        url = "https://slprime.github.io/ChromaticTooltips/"
+        url = uri("https://slprime.github.io/ChromaticTooltips/")
+    }
+    maven {
+        url = uri("https://jitpack.io")
     }
 }

@@ -151,6 +151,10 @@ public class CompatConfig {
     @Config.DefaultBoolean(true)
     public static boolean railcraftEnabled;
 
+    @Config.Comment("Enable compatibility with Science Not Leisure")
+    @Config.DefaultBoolean(true)
+    public static boolean scienceNotLeisureEnabled;
+
     @Config.Comment("Enable compatibility with SFM")
     @Config.DefaultBoolean(true)
     public static boolean sfmEnabled;

@@ -29,7 +29,8 @@ public enum TargetedMod implements ITargetMod {
     LOGISTICS_PIPES(null, "LogisticsPipes"),
     BAUBLES_EXPANDED(null, "Baubles|Expanded"),
     APPLECORE(null, "AppleCore"),
-    JECALCULATION(null, "jecalculation");
+    JECALCULATION(null, "jecalculation"),
+    SCIENCE_NOT_LEISURE(null, "sciencenotleisure");
     // spotless:on
 
     private final TargetModBuilder builder;

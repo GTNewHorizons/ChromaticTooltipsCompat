@@ -73,6 +73,11 @@ public enum Mixins implements IMixins {
         .setApplyIf(() -> CompatConfig.botaniaEnabled)
         .setPhase(Phase.LATE)),
 
+    AKASHIC_TOME(new MixinBuilder("Akashic Tome").addRequiredMod(TargetedMod.AKASHIC_TOME)
+        .addClientMixins("akashictome.RenderHelperMixin")
+        .setApplyIf(() -> CompatConfig.akashictomeEnabled)
+        .setPhase(Phase.LATE)),
+
     BAUBLES_EXPANDED(new MixinBuilder("Baubles Expanded").addRequiredMod(TargetedMod.BAUBLES_EXPANDED)
         .addClientMixins("baublesExpanded.GuiBaublesButtonMixin")
         .setApplyIf(() -> CompatConfig.baublesExpandedEnabled)

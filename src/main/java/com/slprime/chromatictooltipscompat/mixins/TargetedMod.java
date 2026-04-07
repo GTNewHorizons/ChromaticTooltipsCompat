@@ -9,6 +9,7 @@ public enum TargetedMod implements ITargetMod {
 
     // spotless:off
     BUILDCRAFT(null, "BuildCraft|Core"),
+    AKASHIC_TOME(null, "akashictome"),
     CODECHICKEN_LIB(null, "CodeChickenCore"),
     CODECHICKEN_NEI(null, "NotEnoughItems"),
     BETTER_QUESTING(null, "betterquesting"),

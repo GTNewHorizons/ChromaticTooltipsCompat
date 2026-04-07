@@ -167,6 +167,10 @@ public class CompatConfig {
     @Config.DefaultBoolean(true)
     public static boolean railcraftEnabled;
 
+    @Config.Comment("Enable compatibility with Steve's Carts 2")
+    @Config.DefaultBoolean(true)
+    public static boolean stevesCarts2Enabled;
+
     @Config.Comment("Enable compatibility with Science Not Leisure")
     @Config.DefaultBoolean(true)
     public static boolean scienceNotLeisureEnabled;

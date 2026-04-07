@@ -159,6 +159,11 @@ public enum Mixins implements IMixins {
         .setApplyIf(() -> CompatConfig.journeymapEnabled)
         .setPhase(Phase.LATE)),
 
+    STEVES_CARTS_2(new MixinBuilder("Steve's Carts 2").addRequiredMod(TargetedMod.STEVES_CARTS_2)
+        .addClientMixins("stevescarts2.GuiBaseMixin")
+        .setApplyIf(() -> CompatConfig.stevesCarts2Enabled)
+        .setPhase(Phase.LATE)),
+
     SCIENCE_NOT_LEISURE(new MixinBuilder("GT Not Leisure").addRequiredMod(TargetedMod.SCIENCE_NOT_LEISURE)
         .addClientMixins("sciencenotleisure.AnimatedTooltipHandlerMixin")
         .setApplyIf(() -> CompatConfig.scienceNotLeisureEnabled)

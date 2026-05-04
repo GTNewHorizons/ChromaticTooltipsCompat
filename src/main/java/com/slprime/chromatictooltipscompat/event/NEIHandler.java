@@ -242,8 +242,7 @@ public class NEIHandler {
 
         for (int i = 0; i < event.list.size(); i++) {
             if (event.list.get(i) instanceof String str && !str.isEmpty()) {
-                final ITooltipLineHandler lineHandler = GuiDraw
-                    .getTipLine(EnumChatFormatting.getTextWithoutFormattingCodes(str));
+                final ITooltipLineHandler lineHandler = getTipLineHandler(str);
                 if (lineHandler != null) {
                     event.list.set(i, new TooltipComponentCompat(lineHandler));
                 }
@@ -266,8 +265,7 @@ public class NEIHandler {
         final List<ITooltipComponent> additionalComponents = new ArrayList<>();
 
         for (String line : tooltip) {
-            final ITooltipLineHandler lineHandler = GuiDraw
-                .getTipLine(EnumChatFormatting.getTextWithoutFormattingCodes(line));
+            final ITooltipLineHandler lineHandler = getTipLineHandler(line);
             if (lineHandler instanceof ItemsTooltipLineHandler || lineHandler instanceof RecipeTooltipLineHandler
                 || lineHandler instanceof RecipeChainTooltipLineHandler) {
                 additionalComponents.add(new TooltipComponentCompat(lineHandler));
@@ -291,6 +289,24 @@ public class NEIHandler {
     @SubscribeEvent
     public void onScreenPostDraw(DrawScreenEvent.Post event) {
         NEIHandler.tipLineHandlers.clear();
+    }
+
+    private static ITooltipLineHandler getTipLineHandler(String identifier) {
+
+        if (identifier == null || identifier.isEmpty() || !identifier.contains("\u00A7x")) {
+            return null;
+        }
+
+        final String unformattedStr = EnumChatFormatting.getTextWithoutFormattingCodes(identifier);
+        final int index;
+
+        try {
+            index = Integer.parseInt(unformattedStr);
+        } catch (NumberFormatException e) {
+            return null;
+        }
+
+        return index >= 0 && index < NEIHandler.tipLineHandlers.size() ? NEIHandler.tipLineHandlers.get(index) : null;
     }
 
 }

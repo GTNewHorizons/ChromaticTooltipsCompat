@@ -293,20 +293,26 @@ public class NEIHandler {
 
     private static ITooltipLineHandler getTipLineHandler(String identifier) {
 
-        if (identifier == null || identifier.isEmpty() || !identifier.contains("\u00A7x")) {
+        if (identifier == null || identifier.isEmpty()) {
             return null;
         }
 
-        final String unformattedStr = EnumChatFormatting.getTextWithoutFormattingCodes(identifier);
-        final int index;
+        final int index = extractTipLineIndex(identifier);
+        return index >= 0 && index < NEIHandler.tipLineHandlers.size() ? NEIHandler.tipLineHandlers.get(index) : null;
+    }
+
+    private static int extractTipLineIndex(String text) {
+        final int markerIndex = text.lastIndexOf("\u00A7x");
+
+        if (markerIndex < 0 || markerIndex + 2 >= text.length()) {
+            return -1;
+        }
 
         try {
-            index = Integer.parseInt(unformattedStr);
-        } catch (NumberFormatException e) {
-            return null;
+            return Integer.parseInt(text.substring(markerIndex + 2));
+        } catch (NumberFormatException ex) {
+            return -1;
         }
-
-        return index >= 0 && index < NEIHandler.tipLineHandlers.size() ? NEIHandler.tipLineHandlers.get(index) : null;
     }
 
 }

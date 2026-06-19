@@ -81,8 +81,8 @@ public class CompatHandler {
         }
 
         if (CompatConfig.forestryEnabled) {
-            list.add(new TooltipLineModifier(translateToLocal("for.gui.tooltip.tmi"), TooltipLines.CTRL_MODIFIER));
-            list.add(new TooltipLineModifier(translateToLocal("for.gui.tooltip.tml"), TooltipLines.SHIFT_MODIFIER));
+            list.add(new TooltipLineModifier(translateToLocal("for.gui.tooltip.tmi"), TooltipLines.SHIFT_MODIFIER));
+            list.add(new TooltipLineModifier(translateToLocal("for.gui.tooltip.tml"), null));
         }
 
         if (CompatConfig.backpackEnabled) {
@@ -201,7 +201,6 @@ public class CompatHandler {
                 new TooltipLineModifier(
                     translateToLocal("adventurebackpack:tooltips.hold.ctrl"),
                     TooltipLines.CTRL_MODIFIER));
-
         }
 
         if (CompatConfig.draconicEvolutionEnabled) {
@@ -297,7 +296,8 @@ public class CompatHandler {
         for (TooltipLineModifier rule : MODIFIERS) {
             if (event.toolTip.removeIf(
                 s -> EnumChatFormatting.getTextWithoutFormattingCodes(s)
-                    .contains(rule.line))) {
+                    .contains(rule.line))
+                && rule.modifier != null) {
                 event.toolTip.add(rule.modifier);
             }
         }

@@ -9,15 +9,19 @@ import com.slprime.chromatictooltips.TooltipRegistry;
 import com.slprime.chromatictooltips.util.ItemStackFilterParser;
 import com.slprime.chromatictooltips.util.TooltipUtils;
 import com.slprime.chromatictooltipscompat.ChromaticTooltipsCompat.ModIds;
+import com.slprime.chromatictooltipscompat.event.AdventureBackpackHandler;
 import com.slprime.chromatictooltipscompat.event.AppleCoreHandler;
 import com.slprime.chromatictooltipscompat.event.AppliedEnergisticsHandler;
 import com.slprime.chromatictooltipscompat.event.BotaniaManaBarPositionTracker;
 import com.slprime.chromatictooltipscompat.event.CompatHandler;
 import com.slprime.chromatictooltipscompat.event.DraconicEvolutionHandler;
 import com.slprime.chromatictooltipscompat.event.EnderCoreHandler;
+import com.slprime.chromatictooltipscompat.event.ForestryHandler;
 import com.slprime.chromatictooltipscompat.event.NEIHandler;
 import com.slprime.chromatictooltipscompat.event.TConstructHandler;
+import com.slprime.chromatictooltipscompat.event.WawlaHandler;
 import com.slprime.chromatictooltipscompat.filter.GTTierFilterParser;
+import com.slprime.chromatictooltipscompat.util.CompatTooltipRequestResolver;
 import com.slprime.chromatictooltipscompat.util.NEITargetSanitizer;
 
 import cpw.mods.fml.common.Loader;
@@ -64,6 +68,18 @@ public class ClientProxy extends CommonProxy implements IResourceManagerReloadLi
             BotaniaManaBarPositionTracker.registerHandler();
         }
 
+        if (CompatConfig.adventurebackpackEnabled && Loader.isModLoaded(ModIds.ADVENTUREBACKPACK)) {
+            AdventureBackpackHandler.registerHandler();
+        }
+
+        if (CompatConfig.forestryEnabled && Loader.isModLoaded(ModIds.FORESTRY)) {
+            ForestryHandler.registerHandler();
+        }
+
+        if (CompatConfig.wawlaEnabled && Loader.isModLoaded(ModIds.WAWLA)) {
+            WawlaHandler.registerHandler();
+        }
+
         if (TooltipUtils.mc()
             .getResourceManager() instanceof IReloadableResourceManager manager) {
             manager.registerReloadListener(this);
@@ -71,6 +87,7 @@ public class ClientProxy extends CommonProxy implements IResourceManagerReloadLi
             CompatHandler.reload();
         }
 
+        TooltipRegistry.addRequestResolver(new CompatTooltipRequestResolver());
         CompatHandler.registerHandler();
     }
 

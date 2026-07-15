@@ -57,11 +57,10 @@ public abstract class TooltipMixin {
             ConfigHandler.instance()
                 .getConfig(Configuration.CATEGORY_GENERAL, Constants.CFG_WAILA_POSY, 0));
         this.hasIcon = hasIcon;
+        this.offsetX = hasIcon ? 20 : 1;
 
-        this.offsetX = (hasIcon ? 20 : 0);
-
-        w = this.maxStringW + this.offsetX;
-        h = this.getRenderableTotalHeight();
+        w = this.maxStringW + this.offsetX + 3;
+        h = this.getRenderableTotalHeight() + 2;
         ty = (h - this.getRenderableTotalHeight()) / 2 + 1;
 
         x = 0;

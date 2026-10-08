@@ -24,6 +24,7 @@ dependencies {
     devOnlyNonPublishable("com.github.GTNewHorizons:nei-custom-diagram:1.8.30:dev") { transitive = false }
     devOnlyNonPublishable("com.github.GTNewHorizons:NewHorizonsCoreMod:2.9.16:dev")
     devOnlyNonPublishable("com.github.GTNewHorizons:Draconic-Evolution:1.5.29-GTNH:dev")
+    devOnlyNonPublishable("com.github.GTNewHorizons:Avaritia:1.100:dev") { transitive = false }
     devOnlyNonPublishable("com.github.GTNewHorizons:Baubles-Expanded:2.2.21-GTNH:dev")
     devOnlyNonPublishable("com.github.GTNewHorizons:LogisticsPipes:1.5.28-GTNH:dev")
     devOnlyNonPublishable("com.github.GTNewHorizons:MalisisDoors:1.19.8-GTNH:dev")

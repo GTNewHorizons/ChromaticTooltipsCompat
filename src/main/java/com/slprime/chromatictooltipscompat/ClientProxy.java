@@ -45,7 +45,7 @@ public class ClientProxy extends CommonProxy implements IResourceManagerReloadLi
             AppleCoreHandler.registerHandler();
         }
 
-        if (CompatConfig.gregtechEnabled && Loader.isModLoaded(ModIds.GT5)) {
+        if (CompatConfig.gregtechEnabled && Loader.isModLoaded(ModIds.GT5uNH)) {
             ItemStackFilterParser.registerCustomFilter("tier", new GTTierFilterParser());
         }
 

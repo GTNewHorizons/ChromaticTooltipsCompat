@@ -34,5 +34,5 @@ dependencies {
 
     devOnlyNonPublishable(rfg.deobf('maven.modrinth:journeymap:5.2.6')) { transitive = false }
     devOnlyNonPublishable("thaumcraft:Thaumcraft:1.7.10-4.2.3.5:dev") { transitive = false }
-    compileOnly("com.github.ABKQPO:GT-Not-Leisure:0.2.4:dev") { transitive = false }
+    compileOnly("com.github.GTNotLeisure:GTNLLib:1.1.2:dev") { transitive = false }
 }

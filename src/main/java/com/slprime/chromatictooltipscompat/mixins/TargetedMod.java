@@ -37,7 +37,7 @@ public enum TargetedMod implements ITargetMod {
     JOURNEYMAP(null, "journeymap"),
     THAUMCRAFT(null, "Thaumcraft"),
     STEVES_CARTS_2(null, "StevesCarts"),
-    SCIENCE_NOT_LEISURE(null, "sciencenotleisure"),
+    GTNL_LIB(null, "gtnllib"),
     INDUSTRIAL_CRAFT_2(null, "IC2"),
     HARDCORE_ENDER_EXPANSION(null, "HardcoreEnderExpansion");
     // spotless:on

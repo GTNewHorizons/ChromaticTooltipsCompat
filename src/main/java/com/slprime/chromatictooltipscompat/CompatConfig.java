@@ -179,9 +179,9 @@ public class CompatConfig {
     @Config.DefaultBoolean(true)
     public static boolean stevesCarts2Enabled;
 
-    @Config.Comment("Enable compatibility with Science Not Leisure")
+    @Config.Comment("Enable compatibility with GTNL Lib")
     @Config.DefaultBoolean(true)
-    public static boolean scienceNotLeisureEnabled;
+    public static boolean gtnllibEnabled;
 
     @Config.Comment("Enable compatibility with SFM")
     @Config.DefaultBoolean(true)

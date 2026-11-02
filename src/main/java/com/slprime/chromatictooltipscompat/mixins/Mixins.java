@@ -179,9 +179,9 @@ public enum Mixins implements IMixins {
         .setApplyIf(() -> CompatConfig.stevesCarts2Enabled)
         .setPhase(Phase.LATE)),
 
-    SCIENCE_NOT_LEISURE(new MixinBuilder("GT Not Leisure").addRequiredMod(TargetedMod.SCIENCE_NOT_LEISURE)
-        .addClientMixins("sciencenotleisure.AnimatedTooltipHandlerMixin")
-        .setApplyIf(() -> CompatConfig.scienceNotLeisureEnabled)
+    GTNL_LIB(new MixinBuilder("GTNL Lib").addRequiredMod(TargetedMod.GTNL_LIB)
+        .addClientMixins("gtnllib.AnimatedTooltipHandlerMixin")
+        .setApplyIf(() -> CompatConfig.gtnllibEnabled)
         .setPhase(Phase.LATE)),
 
     INDUSTRIAL_CRAFT_2(new MixinBuilder("IndustrialCraft 2").addRequiredMod(TargetedMod.INDUSTRIAL_CRAFT_2)

@@ -14,6 +14,7 @@ import cpw.mods.fml.common.event.FMLServerStartingEvent;
     modid = ChromaticTooltipsCompat.MODID,
     version = Tags.VERSION,
     name = "ChromaticTooltipsCompat",
+    // Need bump: add after:Waila@[<first version with OverlayRenderer.beginBox>,);
     dependencies = "required-after:chromatictooltips@[1.0.7,);after:NotEnoughItems@[2.8.134,);",
     acceptedMinecraftVersions = "[1.7.10]")
 public class ChromaticTooltipsCompat {

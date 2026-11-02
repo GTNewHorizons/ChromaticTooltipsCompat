@@ -64,7 +64,7 @@ public class OverlayRendererMixin {
                 * tooltipInvoker.getPos().y
                 / 10000;
 
-            if (!OverlayRenderer.beginBox(x, y, tooltipSize.width, tooltipSize.height)) {
+            if (!OverlayRenderer.beginBox("ChromaticTooltips", x, y, tooltipSize.width, tooltipSize.height)) {
                 return;
             }
 

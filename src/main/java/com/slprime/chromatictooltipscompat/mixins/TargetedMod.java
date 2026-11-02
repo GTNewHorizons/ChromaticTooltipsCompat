@@ -24,6 +24,7 @@ public enum TargetedMod implements ITargetMod {
     APPLIED_ENERGISTICS_2(null, "appliedenergistics2"),
     TINKERS_CONSTRUCT(null, "TConstruct"),
     WAILA(null, "Waila"),
+    WORLD_TOOLTIPS_CONTINUATION(null, "world-tooltips"),
     WAWLA(null, "wawla"),
     NEI_CUSTOM_DIAGRAM(null, "neicustomdiagram"),
     GTNH_LIB(null, "gtnhlib"),

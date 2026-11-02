@@ -215,6 +215,10 @@ public class CompatConfig {
     @Config.DefaultBoolean(true)
     public static boolean wailaEnabled;
 
+    @Config.Comment("Enable compatibility with WorldTooltips Continuation")
+    @Config.DefaultBoolean(true)
+    public static boolean worldTooltipsContinuationEnabled;
+
     @Config.Comment("Enable compatibility with Wawla")
     @Config.DefaultBoolean(true)
     public static boolean wawlaEnabled;

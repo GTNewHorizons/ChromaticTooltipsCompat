@@ -73,6 +73,12 @@ public enum Mixins implements IMixins {
         .setApplyIf(() -> CompatConfig.wailaEnabled)
         .setPhase(Phase.LATE)),
 
+    WORLD_TOOLTIPS_CONTINUATION(
+        new MixinBuilder("WorldTooltips Continuation").addRequiredMod(TargetedMod.WORLD_TOOLTIPS_CONTINUATION)
+            .addClientMixins("worldtooltips.TooltipMixin")
+            .setApplyIf(() -> CompatConfig.worldTooltipsContinuationEnabled)
+            .setPhase(Phase.LATE)),
+
     BOTANIA(new MixinBuilder("Botania").addRequiredMod(TargetedMod.BOTANIA)
         .addClientMixins("botania.RenderHelperMixin", "botania.TooltipAdditionDisplayHandlerMixin")
         .setApplyIf(() -> CompatConfig.botaniaEnabled)

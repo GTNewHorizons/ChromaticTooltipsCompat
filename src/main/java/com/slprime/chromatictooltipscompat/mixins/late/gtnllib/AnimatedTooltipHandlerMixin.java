@@ -17,13 +17,12 @@ public class AnimatedTooltipHandlerMixin {
     /**
      * @author SLPrime
      * @reason Redirect tooltip text retrieval to Chromatic Tooltips so it can be wrapped in a dynamic text component.
-     * @see https://github.com/ABKQPO/GT-Not-Leisure/blob/7a7e339eaf29b1793cf3970fb8dbd7fcf6f2bc2b/src/main/java/com/science/gtnl/mixins/early/Stick/MixinAnimatedTooltipHandler.java
      */
     @Redirect(
         method = "appendTooltipText",
         at = @At(value = "INVOKE", target = "Ljava/util/function/Supplier;get()Ljava/lang/Object;"),
         remap = false)
-    private static Object renderTooltip(Supplier<String> tooltip, List<String> tooltips,
+    private static Object appendTooltipText(Supplier<String> tooltip, List<String> tooltips,
         List<Supplier<String>> tooltipSuppliers) {
         if (tooltip.get() != null) {
             tooltips.add(TooltipHandler.getComponentId(new DyncamicTextComponent(tooltip)));

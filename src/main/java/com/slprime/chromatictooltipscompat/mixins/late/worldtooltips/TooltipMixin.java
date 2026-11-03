@@ -2,7 +2,6 @@ package com.slprime.chromatictooltipscompat.mixins.late.worldtooltips;
 
 import java.nio.FloatBuffer;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.item.ItemStack;
 
@@ -74,9 +73,10 @@ public class TooltipMixin {
         final ItemStack stack = tooltip.getEntity()
             .getEntityItem();
         final int modifierHash = TooltipUtils.getMetaHash();
+        final ScaledResolution sr = TooltipUtils.getScaledResolution();
 
         if (this.chromatic$request == null || !ItemStack.areItemStacksEqual(this.chromatic$stackSnapshot, stack)) {
-            this.chromatic$request = new TooltipRequest(null, TooltipTarget.ofItem(stack), null, null);
+            this.chromatic$request = new TooltipRequest("worldtooltips", TooltipTarget.ofItem(stack), null, null);
             this.chromatic$stackSnapshot = stack.copy();
             this.chromatic$context = null;
         }
@@ -84,9 +84,7 @@ public class TooltipMixin {
         if (this.chromatic$context == null || this.chromatic$modifierHash != modifierHash) {
             this.chromatic$context = TooltipHandler
                 .createTooltipContext(this.chromatic$request, this.chromatic$context);
-            this.chromatic$context.setScaleFactor(
-                TooltipUtils.getScaledResolution()
-                    .getScaleFactor());
+            this.chromatic$context.setScaleFactor(sr.getScaleFactor());
             this.chromatic$modifierHash = modifierHash;
         }
 
@@ -101,8 +99,6 @@ public class TooltipMixin {
         GL11.glGetFloat(GL11.GL_MODELVIEW_MATRIX, chromatic$modelview);
         GL11.glGetFloat(GL11.GL_PROJECTION_MATRIX, chromatic$projection);
 
-        final Minecraft mc = Minecraft.getMinecraft();
-        final ScaledResolution sr = new ScaledResolution(mc, mc.displayWidth, mc.displayHeight);
         final double screenWidth = sr.getScaledWidth_double();
         final double screenHeight = sr.getScaledHeight_double();
         final double[] anchor = chromatic$project(anchorX, anchorY, screenWidth, screenHeight);
@@ -125,11 +121,12 @@ public class TooltipMixin {
 
         GL11.glMatrixMode(GL11.GL_PROJECTION);
         GL11.glLoadIdentity();
-        GL11.glOrtho(0d, screenWidth, screenHeight, 0d, 1000d, 3000d);
+        // unit also scales z, so the depth range must grow with it or item icons get clipped by the near plane
+        GL11.glOrtho(0d, screenWidth, screenHeight, 0d, 1000d * unit, 3000d * unit);
         GL11.glMatrixMode(GL11.GL_MODELVIEW);
         GL11.glPushMatrix();
         GL11.glLoadIdentity();
-        GL11.glTranslatef(0f, 0f, -2000f);
+        GL11.glTranslated(0d, 0d, -2000d * unit);
         GL11.glTranslated(anchor[0], anchor[1], 0d);
         GL11.glScaled(unit, unit, unit);
 

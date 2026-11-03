@@ -73,6 +73,12 @@ public enum Mixins implements IMixins {
         .setApplyIf(() -> CompatConfig.wailaEnabled)
         .setPhase(Phase.LATE)),
 
+    WORLD_TOOLTIPS_CONTINUATION(
+        new MixinBuilder("WorldTooltips Continuation").addRequiredMod(TargetedMod.WORLD_TOOLTIPS_CONTINUATION)
+            .addClientMixins("worldtooltips.TooltipMixin")
+            .setApplyIf(() -> CompatConfig.worldTooltipsContinuationEnabled)
+            .setPhase(Phase.LATE)),
+
     BOTANIA(new MixinBuilder("Botania").addRequiredMod(TargetedMod.BOTANIA)
         .addClientMixins("botania.RenderHelperMixin", "botania.TooltipAdditionDisplayHandlerMixin")
         .setApplyIf(() -> CompatConfig.botaniaEnabled)
@@ -179,9 +185,9 @@ public enum Mixins implements IMixins {
         .setApplyIf(() -> CompatConfig.stevesCarts2Enabled)
         .setPhase(Phase.LATE)),
 
-    SCIENCE_NOT_LEISURE(new MixinBuilder("GT Not Leisure").addRequiredMod(TargetedMod.SCIENCE_NOT_LEISURE)
-        .addClientMixins("sciencenotleisure.AnimatedTooltipHandlerMixin")
-        .setApplyIf(() -> CompatConfig.scienceNotLeisureEnabled)
+    GTNL_LIB(new MixinBuilder("GTNL Lib").addRequiredMod(TargetedMod.GTNL_LIB)
+        .addClientMixins("gtnllib.AnimatedTooltipHandlerMixin")
+        .setApplyIf(() -> CompatConfig.gtnllibEnabled)
         .setPhase(Phase.LATE)),
 
     INDUSTRIAL_CRAFT_2(new MixinBuilder("IndustrialCraft 2").addRequiredMod(TargetedMod.INDUSTRIAL_CRAFT_2)

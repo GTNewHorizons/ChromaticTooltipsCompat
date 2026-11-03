@@ -24,6 +24,7 @@ public enum TargetedMod implements ITargetMod {
     APPLIED_ENERGISTICS_2(null, "appliedenergistics2"),
     TINKERS_CONSTRUCT(null, "TConstruct"),
     WAILA(null, "Waila"),
+    WORLD_TOOLTIPS_CONTINUATION(null, "world-tooltips"),
     WAWLA(null, "wawla"),
     NEI_CUSTOM_DIAGRAM(null, "neicustomdiagram"),
     GTNH_LIB(null, "gtnhlib"),
@@ -37,7 +38,7 @@ public enum TargetedMod implements ITargetMod {
     JOURNEYMAP(null, "journeymap"),
     THAUMCRAFT(null, "Thaumcraft"),
     STEVES_CARTS_2(null, "StevesCarts"),
-    SCIENCE_NOT_LEISURE(null, "sciencenotleisure"),
+    GTNL_LIB(null, "gtnllib"),
     INDUSTRIAL_CRAFT_2(null, "IC2"),
     HARDCORE_ENDER_EXPANSION(null, "HardcoreEnderExpansion");
     // spotless:on

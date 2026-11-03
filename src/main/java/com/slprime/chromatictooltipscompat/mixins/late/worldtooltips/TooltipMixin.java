@@ -1,10 +1,13 @@
 package com.slprime.chromatictooltipscompat.mixins.late.worldtooltips;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.nio.FloatBuffer;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.item.ItemStack;
 
+import org.lwjgl.BufferUtils;
+import org.lwjgl.opengl.GL11;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -12,15 +15,22 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 import com.slprime.chromatictooltips.TooltipHandler;
 import com.slprime.chromatictooltips.api.TooltipContext;
-import com.slprime.chromatictooltips.api.TooltipLines;
 import com.slprime.chromatictooltips.api.TooltipRequest;
 import com.slprime.chromatictooltips.api.TooltipTarget;
+import com.slprime.chromatictooltips.component.SectionComponent;
+import com.slprime.chromatictooltips.util.TooltipSpacing;
 import com.slprime.chromatictooltips.util.TooltipUtils;
 
 import ninja.genuine.tooltips.client.Tooltip;
 
 @Mixin(value = Tooltip.class, remap = false)
 public class TooltipMixin {
+
+    @Unique
+    private static final FloatBuffer chromatic$modelview = BufferUtils.createFloatBuffer(16);
+
+    @Unique
+    private static final FloatBuffer chromatic$projection = BufferUtils.createFloatBuffer(16);
 
     @Unique
     private TooltipContext chromatic$context;
@@ -66,17 +76,7 @@ public class TooltipMixin {
         final int modifierHash = TooltipUtils.getMetaHash();
 
         if (this.chromatic$request == null || !ItemStack.areItemStacksEqual(this.chromatic$stackSnapshot, stack)) {
-            final List<String> lines = new ArrayList<>(tooltip.size());
-
-            for (int i = 0; i < tooltip.size(); i++) {
-                lines.add(tooltip.getLine(i));
-            }
-
-            this.chromatic$request = new TooltipRequest(
-                null,
-                TooltipTarget.ofItem(stack),
-                new TooltipLines(lines),
-                null);
+            this.chromatic$request = new TooltipRequest(null, TooltipTarget.ofItem(stack), null, null);
             this.chromatic$stackSnapshot = stack.copy();
             this.chromatic$context = null;
         }
@@ -84,10 +84,86 @@ public class TooltipMixin {
         if (this.chromatic$context == null || this.chromatic$modifierHash != modifierHash) {
             this.chromatic$context = TooltipHandler
                 .createTooltipContext(this.chromatic$request, this.chromatic$context);
+            this.chromatic$context.setScaleFactor(
+                TooltipUtils.getScaledResolution()
+                    .getScaleFactor());
             this.chromatic$modifierHash = modifierHash;
         }
 
-        this.chromatic$context.getRenderer()
-            .draw(this.chromatic$context, x, y);
+        final SectionComponent page = this.chromatic$context.getActivePageComponent();
+        if (page == null || page.isEmpty()) {
+            return;
+        }
+
+        final float anchorX = x + tooltip.getWidth() / 2f;
+        final float anchorY = y + tooltip.getHeight() + 4;
+
+        GL11.glGetFloat(GL11.GL_MODELVIEW_MATRIX, chromatic$modelview);
+        GL11.glGetFloat(GL11.GL_PROJECTION_MATRIX, chromatic$projection);
+
+        final Minecraft mc = Minecraft.getMinecraft();
+        final ScaledResolution sr = new ScaledResolution(mc, mc.displayWidth, mc.displayHeight);
+        final double screenWidth = sr.getScaledWidth_double();
+        final double screenHeight = sr.getScaledHeight_double();
+        final double[] anchor = chromatic$project(anchorX, anchorY, screenWidth, screenHeight);
+        final double[] probe = chromatic$project(anchorX + 100f, anchorY, screenWidth, screenHeight);
+
+        if (anchor == null || probe == null) {
+            return;
+        }
+
+        final double unit = Math.hypot(probe[0] - anchor[0], probe[1] - anchor[1]) / 100d;
+        if (!(unit > 0d) || Double.isInfinite(unit)) {
+            return;
+        }
+
+        final TooltipSpacing margin = page.getMargin();
+        final int innerWidth = page.getWidth() - margin.getInline();
+        final int innerHeight = page.getHeight() - margin.getBlock();
+        final int drawX = -innerWidth / 2 - margin.getLeft();
+        final int drawY = -innerHeight - margin.getTop();
+
+        GL11.glMatrixMode(GL11.GL_PROJECTION);
+        GL11.glLoadIdentity();
+        GL11.glOrtho(0d, screenWidth, screenHeight, 0d, 1000d, 3000d);
+        GL11.glMatrixMode(GL11.GL_MODELVIEW);
+        GL11.glPushMatrix();
+        GL11.glLoadIdentity();
+        GL11.glTranslatef(0f, 0f, -2000f);
+        GL11.glTranslated(anchor[0], anchor[1], 0d);
+        GL11.glScaled(unit, unit, unit);
+
+        this.chromatic$context.drawAt(drawX, drawY);
+
+        GL11.glPopMatrix();
+        GL11.glMatrixMode(GL11.GL_PROJECTION);
+        GL11.glLoadMatrix(chromatic$projection);
+        GL11.glMatrixMode(GL11.GL_MODELVIEW);
+    }
+
+    @Unique
+    private static double[] chromatic$project(float x, float y, double screenWidth, double screenHeight) {
+        final FloatBuffer mv = chromatic$modelview;
+        final FloatBuffer p = chromatic$projection;
+        final double[] eye = new double[4];
+
+        for (int i = 0; i < 4; i++) {
+            eye[i] = mv.get(i) * x + mv.get(4 + i) * y + mv.get(12 + i);
+        }
+
+        final double[] clip = new double[4];
+
+        for (int i = 0; i < 4; i++) {
+            clip[i] = p.get(i) * eye[0] + p.get(4 + i) * eye[1] + p.get(8 + i) * eye[2] + p.get(12 + i) * eye[3];
+        }
+
+        if (clip[3] <= 1.0E-6d) {
+            return null;
+        }
+
+        final double ndcX = clip[0] / clip[3];
+        final double ndcY = clip[1] / clip[3];
+
+        return new double[] { (ndcX + 1d) * 0.5d * screenWidth, (1d - ndcY) * 0.5d * screenHeight };
     }
 }

@@ -18,6 +18,7 @@ import com.slprime.chromatictooltipscompat.event.CompatHandler;
 import com.slprime.chromatictooltipscompat.event.DraconicEvolutionHandler;
 import com.slprime.chromatictooltipscompat.event.EnderCoreHandler;
 import com.slprime.chromatictooltipscompat.event.ForestryHandler;
+import com.slprime.chromatictooltipscompat.event.GregTechHandler;
 import com.slprime.chromatictooltipscompat.event.NEIHandler;
 import com.slprime.chromatictooltipscompat.event.TConstructHandler;
 import com.slprime.chromatictooltipscompat.event.WawlaHandler;
@@ -47,6 +48,7 @@ public class ClientProxy extends CommonProxy implements IResourceManagerReloadLi
 
         if (CompatConfig.gregtechEnabled && Loader.isModLoaded(ModIds.GT5uNH)) {
             ItemStackFilterParser.registerCustomFilter("tier", new GTTierFilterParser());
+            GregTechHandler.registerHandler();
         }
 
         if (CompatConfig.enderCoreEnabled && Loader.isModLoaded(ModIds.ENDERCORE)) {

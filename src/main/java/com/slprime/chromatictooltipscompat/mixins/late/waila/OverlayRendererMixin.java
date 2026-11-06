@@ -64,9 +64,14 @@ public class OverlayRendererMixin {
                 * tooltipInvoker.getPos().y
                 / 10000;
 
+            if (!OverlayRenderer.beginBox("ChromaticTooltips", x, y, tooltipSize.width, tooltipSize.height)) {
+                return;
+            }
+
             GL11.glScalef(OverlayConfig.scale, OverlayConfig.scale, 1.0f);
             previousContext.drawAt(x, y);
             GL11.glScalef(1.0f / OverlayConfig.scale, 1.0f / OverlayConfig.scale, 1.0f);
+            OverlayRenderer.endBox();
         }
 
     }

@@ -19,9 +19,11 @@ public class WawlaHandler {
     @SubscribeEvent
     public void onTooltip(TooltipResolverEvent event) {
         final ItemStack stack = event.getItemStack();
-        if (stack.getItem() instanceof ItemEnchantedBook
-            && Utilities.getEnchantmentsFromStack(stack, true).length > 0) {
-            event.supports(TooltipModifier.SHIFT);
+        if (stack.getItem() instanceof ItemEnchantedBook) {
+            Enchantment[] enchantments = Utilities.getEnchantmentsFromStack(stack, true);
+            if (enchantments != null && enchantments.length > 0) {
+                event.supports(TooltipModifier.SHIFT);
+            }
         }
     }
 

@@ -3,6 +3,7 @@ package com.slprime.chromatictooltipscompat.event;
 import net.darkhax.wawla.util.Utilities;
 import net.minecraft.item.ItemEnchantedBook;
 import net.minecraft.item.ItemStack;
+import net.minecraft.enchantment.Enchantment;
 
 import com.slprime.chromatictooltips.api.TooltipModifier;
 import com.slprime.chromatictooltips.util.TooltipUtils;

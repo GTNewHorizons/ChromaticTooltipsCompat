@@ -1,6 +1,7 @@
 package com.slprime.chromatictooltipscompat.event;
 
 import net.darkhax.wawla.util.Utilities;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.item.ItemEnchantedBook;
 import net.minecraft.item.ItemStack;
 
@@ -19,9 +20,11 @@ public class WawlaHandler {
     @SubscribeEvent
     public void onTooltip(TooltipResolverEvent event) {
         final ItemStack stack = event.getItemStack();
-        if (stack.getItem() instanceof ItemEnchantedBook
-            && Utilities.getEnchantmentsFromStack(stack, true).length > 0) {
-            event.supports(TooltipModifier.SHIFT);
+        if (stack.getItem() instanceof ItemEnchantedBook) {
+            Enchantment[] enchantments = Utilities.getEnchantmentsFromStack(stack, true);
+            if (enchantments != null && enchantments.length > 0) {
+                event.supports(TooltipModifier.SHIFT);
+            }
         }
     }
 

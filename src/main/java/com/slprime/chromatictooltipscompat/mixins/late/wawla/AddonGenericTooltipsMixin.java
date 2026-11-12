@@ -36,7 +36,7 @@ public class AddonGenericTooltipsMixin {
 
             if (item instanceof ItemEnchantedBook) {
                 Enchantment[] enchArr = Utilities.getEnchantmentsFromStack(event.itemStack, true);
-                Enchantment ench = enchArr.length > 0 ? enchArr[0] : null;
+                Enchantment ench = enchArr != null && enchArr.length > 0 ? enchArr[0] : null;
 
                 if (ench != null) {
 

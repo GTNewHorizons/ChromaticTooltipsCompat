@@ -189,7 +189,7 @@ public class GTTierFilterParser implements Function<String, Predicate<TooltipTar
             case 6 -> ItemList.Hull_LuV.get(1);
             case 7 -> ItemList.Hull_ZPM.get(1);
             case 8 -> ItemList.Hull_UV.get(1);
-            default -> ItemList.Hull_MAX.get(1);
+            default -> ItemList.Hull_UHV.get(1);
         };
     }
 
@@ -361,7 +361,7 @@ public class GTTierFilterParser implements Function<String, Predicate<TooltipTar
             case 6 -> ItemList.Hull_LuV.get(1);
             case 7 -> ItemList.Hull_ZPM.get(1);
             case 8 -> ItemList.Hull_UV.get(1);
-            default -> ItemList.Hull_MAX.get(1);
+            default -> ItemList.Hull_UHV.get(1);
         };
     }
 
@@ -376,7 +376,7 @@ public class GTTierFilterParser implements Function<String, Predicate<TooltipTar
             case 6 -> ItemList.Casing_LuV.get(1);
             case 7 -> ItemList.Casing_ZPM.get(1);
             case 8 -> ItemList.Casing_UV.get(1);
-            default -> ItemList.Casing_MAX.get(1);
+            default -> ItemList.Casing_UHV.get(1);
         };
     }
 

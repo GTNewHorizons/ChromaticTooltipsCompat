@@ -295,7 +295,7 @@ public class CompatHandler {
     public void onItemTooltipEvent(ItemTooltipEvent event) {
         for (TooltipLineModifier rule : MODIFIERS) {
             if (event.toolTip.removeIf(
-                s -> EnumChatFormatting.getTextWithoutFormattingCodes(s)
+                s -> s != null && EnumChatFormatting.getTextWithoutFormattingCodes(s)
                     .contains(rule.line))
                 && rule.modifier != null) {
                 event.toolTip.add(rule.modifier);

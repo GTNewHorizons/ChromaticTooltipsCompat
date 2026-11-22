@@ -32,6 +32,7 @@ import com.slprime.chromatictooltips.component.SpaceComponent;
 import com.slprime.chromatictooltips.component.TextComponent;
 import com.slprime.chromatictooltips.util.TooltipUtils;
 import com.slprime.chromatictooltipscompat.event.CompatHandler;
+import com.slprime.chromatictooltipscompat.event.GregTechHandler;
 import com.slprime.chromatictooltipscompat.event.ModularUI2Handler;
 
 @Mixin(RichTooltip.class)
@@ -112,6 +113,7 @@ public class RichTooltipMixin {
     private void chromatictooltips$onAddFromFluid(FluidStack fluid, CallbackInfoReturnable<RichTooltip> cir) {
         final RichTooltip tooltip = (RichTooltip) (Object) this;
         final List<String> lines = MCHelper.getFluidTooltip(fluid);
+        GregTechHandler.removeFluidMaterialLines(fluid, lines);
 
         // the title and the fluid info are built by Chromatic Tooltips from the fluid target
         for (int i = 1; i < lines.size(); i++) {

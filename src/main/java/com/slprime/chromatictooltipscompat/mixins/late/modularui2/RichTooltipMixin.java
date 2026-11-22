@@ -31,6 +31,8 @@ import com.slprime.chromatictooltips.api.TooltipTarget;
 import com.slprime.chromatictooltips.component.SpaceComponent;
 import com.slprime.chromatictooltips.component.TextComponent;
 import com.slprime.chromatictooltips.util.TooltipUtils;
+import com.slprime.chromatictooltipscompat.event.CompatHandler;
+import com.slprime.chromatictooltipscompat.event.ModularUI2Handler;
 
 @Mixin(RichTooltip.class)
 public class RichTooltipMixin {
@@ -99,6 +101,7 @@ public class RichTooltipMixin {
     }
 
     private FluidStack chromatictooltips$fluid;
+    private boolean chromatictooltips$hasShiftHint = false;
 
     @Inject(method = "buildTooltip", at = @At("HEAD"), remap = false)
     private void chromatictooltips$onBuildTooltip(CallbackInfo ci) {
@@ -172,10 +175,18 @@ public class RichTooltipMixin {
         }
 
         if (this.chromatictooltips$fluid != null) {
+            CompatHandler.replaceModifierLines(tooltipComponents);
+
+            if (!TooltipUtils.isShiftKeyDown()) {
+                this.chromatictooltips$hasShiftHint = tooltipComponents.contains(TooltipLines.SHIFT_MODIFIER);
+            } else if (this.chromatictooltips$hasShiftHint) {
+                tooltipComponents.add(TooltipLines.SHIFT_MODIFIER);
+            }
+
             // the slot lines show the amount, and some slots (e.g. GT fluid lock) use a placeholder amount
             TooltipHandler.drawHoveringText(
                 new TooltipRequest(
-                    null,
+                    ModularUI2Handler.FLUID_SLOT_CONTEXT,
                     TooltipTarget.ofFluid(this.chromatictooltips$fluid, 0),
                     new TooltipLines(tooltipComponents),
                     null));

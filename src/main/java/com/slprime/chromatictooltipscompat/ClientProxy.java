@@ -19,6 +19,7 @@ import com.slprime.chromatictooltipscompat.event.DraconicEvolutionHandler;
 import com.slprime.chromatictooltipscompat.event.EnderCoreHandler;
 import com.slprime.chromatictooltipscompat.event.ForestryHandler;
 import com.slprime.chromatictooltipscompat.event.GregTechHandler;
+import com.slprime.chromatictooltipscompat.event.ModularUI2Handler;
 import com.slprime.chromatictooltipscompat.event.NEIHandler;
 import com.slprime.chromatictooltipscompat.event.TConstructHandler;
 import com.slprime.chromatictooltipscompat.event.WawlaHandler;
@@ -85,6 +86,10 @@ public class ClientProxy extends CommonProxy implements IResourceManagerReloadLi
 
         if (CompatConfig.avaritiaEnabled && Loader.isModLoaded(ModIds.AVARITIA)) {
             AvaritiaHandler.registerHandler();
+        }
+
+        if (CompatConfig.modularUI2Enabled && Loader.isModLoaded(ModIds.MODULARUI2)) {
+            ModularUI2Handler.registerHandler();
         }
 
         if (TooltipUtils.mc()

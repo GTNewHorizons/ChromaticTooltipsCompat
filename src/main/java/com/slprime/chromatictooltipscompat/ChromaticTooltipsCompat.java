@@ -66,6 +66,7 @@ public class ChromaticTooltipsCompat {
         public static final String BOTANIA = "Botania";
         public static final String FORESTRY = "Forestry";
         public static final String AVARITIA = "Avaritia";
+        public static final String MODULARUI2 = "modularui2";
 
     }
 }

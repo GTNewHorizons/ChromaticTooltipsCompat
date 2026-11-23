@@ -30,6 +30,7 @@ import com.slprime.chromatictooltips.api.TooltipRequest;
 import com.slprime.chromatictooltips.api.TooltipTarget;
 import com.slprime.chromatictooltips.component.SpaceComponent;
 import com.slprime.chromatictooltips.component.TextComponent;
+import com.slprime.chromatictooltips.converter.ModifierConverter;
 import com.slprime.chromatictooltips.util.TooltipUtils;
 import com.slprime.chromatictooltipscompat.event.CompatHandler;
 import com.slprime.chromatictooltipscompat.event.GregTechHandler;
@@ -166,9 +167,10 @@ public class RichTooltipMixin {
 
         for (ITextLine line : compiledLines) {
             if (line instanceof TextLine textLine) {
+                final String text = textLine.toString();
                 tooltipComponents.add(
-                    this.chromatictooltips$fluid != null ? textLine.toString()
-                        : TooltipUtils.applyBaseColorIfAbsent(textLine.toString(), EnumChatFormatting.WHITE));
+                    this.chromatictooltips$fluid != null || ModifierConverter.PATTERN.matcher(text)
+                        .matches() ? text : TooltipUtils.applyBaseColorIfAbsent(text, EnumChatFormatting.WHITE));
             } else if (line instanceof Spacer spacer) {
                 tooltipComponents.add(new SpaceComponent(spacer.getSpace()));
             } else {

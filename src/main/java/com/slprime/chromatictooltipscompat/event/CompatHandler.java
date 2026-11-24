@@ -293,12 +293,16 @@ public class CompatHandler {
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public void onItemTooltipEvent(ItemTooltipEvent event) {
+        replaceModifierLines(event.toolTip);
+    }
+
+    public static void replaceModifierLines(List<? super String> lines) {
         for (TooltipLineModifier rule : MODIFIERS) {
-            if (event.toolTip.removeIf(
-                s -> s != null && EnumChatFormatting.getTextWithoutFormattingCodes(s)
+            if (lines.removeIf(
+                s -> s instanceof String str && EnumChatFormatting.getTextWithoutFormattingCodes(str)
                     .contains(rule.line))
                 && rule.modifier != null) {
-                event.toolTip.add(rule.modifier);
+                lines.add(rule.modifier);
             }
         }
     }

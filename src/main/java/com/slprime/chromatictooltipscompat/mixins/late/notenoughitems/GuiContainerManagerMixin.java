@@ -65,17 +65,19 @@ public class GuiContainerManagerMixin {
     @Inject(method = "renderToolTips", at = @At("HEAD"), remap = false, cancellable = true)
     private void tooltip$renderToolTips(int mousex, int mousey, CallbackInfo ci) {
         List<String> tooltip = new ArrayList<>();
-        final ItemStack stack = GuiContainerManager.getStackMouseOver(this.window);
-        final boolean showTooltip = GuiContainerManager.shouldShowTooltip(this.window);
-
-        if (stack != null && SELECTED_TAB_INDEX != null && this.window instanceof GuiContainerCreative guiCreative) {
-            tooltip.addAll(this.chromatictooltipscompat$buildCreativeTabLines(guiCreative, stack));
-        }
 
         synchronized (instanceTooltipHandlers) {
             for (IContainerTooltipHandler handler : instanceTooltipHandlers) {
                 tooltip = handler.handleTooltip(this.window, mousex, mousey, tooltip);
             }
+        }
+
+        final ItemStack stack = tooltip.isEmpty() && GuiContainerManager.shouldShowTooltip(this.window)
+            ? GuiContainerManager.getStackMouseOver(this.window)
+            : null;
+
+        if (stack != null && SELECTED_TAB_INDEX != null && this.window instanceof GuiContainerCreative guiCreative) {
+            tooltip.addAll(this.chromatictooltipscompat$buildCreativeTabLines(guiCreative, stack));
         }
 
         if (CompatConfig.enderCoreEnabled && Loader.isModLoaded(ModIds.ENDERCORE)
@@ -84,7 +86,7 @@ public class GuiContainerManagerMixin {
             EnderIOTooltipBridge.handle(tooltip);
         }
 
-        TooltipHandler.drawHoveringText(showTooltip ? stack : null, tooltip);
+        TooltipHandler.drawHoveringText(stack, tooltip);
         ci.cancel();
     }
 
